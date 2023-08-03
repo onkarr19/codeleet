@@ -20,8 +20,8 @@ CodeLeet is a web application designed to serve as a clone of the popular coding
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- npm (v7 or higher)
+- Node.js (v20 or higher)
+- npm (v9 or higher)
 
 ### Clone the repository
 
@@ -56,7 +56,7 @@ cd client
 npm run dev
 ```
 
-The server will run on `http://localhost:5000`, and the client will run on `http://localhost:3000`.
+The server will run on `http://localhost:3000`, and the client will run on `http://localhost:5000`.
 
 ## Contributing
 
