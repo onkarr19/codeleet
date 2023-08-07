@@ -1,17 +1,22 @@
 import express from 'express';
 import {auth} from './auth.js';
 import jwt from 'jsonwebtoken';
-// require('dotenv').config();
+import cors from 'cors';
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+const port = process.env.PORT;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const app = express();
-const port = 3000;
-const JWT_SECRET = "SECRET_KEY";
 app.use(express.json());
+app.use(cors({
+    origin: 'localhost'
+}));
 
-// const apiKey = process.env.KEY_NAME;
-// const anotherValue = process.env.ANOTHER_KEY;
 
-
+// Dummy data
 const PROBLEMS = [
     {   
         id: 1, 
