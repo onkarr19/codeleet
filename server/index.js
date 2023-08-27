@@ -1,11 +1,18 @@
+// Required modules
 import express from 'express';
-import { auth } from './auth.js';
 import jwt from 'jsonwebtoken';
 import cors from 'cors';
-
 import dotenv from 'dotenv';
+
+// Local modules
+import { formatDate } from './utils.js';
+import { auth } from './auth.js';
+import { publishToQueue } from './services/rabbitmq.js';
+
+// Load environment variables
 dotenv.config();
 
+// Set port and JWT secret from environment variables
 const port = process.env.PORT;
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -53,10 +60,10 @@ const USERS = [
         password: "IamSpidy",
     },
 ]
-
+let SUBMISSION_ID_COUNTER = 0;
 const SUBMISSIONS = [
     {
-        id: 1,
+        id: ++SUBMISSION_ID_COUNTER,
         problemId: 1,
         userId: 1,
         code: `class Solution { public int[] twoSum(int[] nums, int target) { for (int i = 0; i < nums.length; i++) { for (int j = i + 1; j < nums.length; j++) { if (nums[j] == target - nums[i]) { return new int[] { i, j }; } } } throw new IllegalArgumentException(\"No two sum solution\"); } }`,
@@ -88,7 +95,6 @@ app.get('/', (req, res) => {
 
 app.post('/signup', (req, res) => {
     
-    // extract the username and password from the request body
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
@@ -101,7 +107,7 @@ app.post('/signup', (req, res) => {
         });
     }
 
-    // create a new user and add save it
+    // creating a new user and add save it
     USERS.push({ id: ++USER_ID_COUNTER, username: username, password: password, email: email });
 
     // return a JSON response indicating successful signup
@@ -110,7 +116,6 @@ app.post('/signup', (req, res) => {
 
 app.post('/login', (req, res) => {
 
-    // extract the username and password from the request body
     const username = req.body.username;
     const password = req.body.password;
 
@@ -125,7 +130,7 @@ app.post('/login', (req, res) => {
     if (user.password !== password)
         return res.status(411).json({ message: "Incorrect Password" });
 
-    // create a JWT token with the user's ID as the payload and sign it with the JWT secret key
+    // creating a JWT token with the user's ID as the payload and sign it with the JWT secret key
     const token = jwt.sign({
         id: user.id,
     }, JWT_SECRET);
@@ -177,6 +182,37 @@ app.get('/problem', (req, res) => {
     });
 });
 
+app.post('/submission', auth, async (req, res) => {
+
+    const _lang = req.body.lang;
+    const _code = req.body.code;
+    const _problem_id = req.body.problem_id;
+    const _user_id = req.userId;
+    const _submit = req.body.submit === true ? req.body.submit : false;
+
+    // Creating a submission data object
+    const submissionData = {
+        id: ++SUBMISSION_ID_COUNTER,
+        user_id: _user_id,
+        problem_id: _problem_id,
+        lang: _lang,
+        code: _code,
+        time: formatDate(new Date()),
+        submit: _submit
+    };
+    try {
+        // Creating a new submission entry to database
+        SUBMISSIONS.push(submissionData);
+        // Publishing submission in queue for further processing
+        await publishToQueue(submissionData);
+        return res.send({message: "Submission added to Queue!"});
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server app listening at http://localhost:${port}`);
 });
+
+export default app;
