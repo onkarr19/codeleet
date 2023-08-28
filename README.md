@@ -36,6 +36,18 @@ cd codeleet
 cd server
 npm install
 ```
+Create a `.env` in server directory. This file will contain your environment variables.
+
+```bash
+# .env
+JWT_SECRET="secret-key"
+PORT=3000
+RABBITMQ_HOSTNAME="rabbitmq-host"
+RABBITMQ_PORT="rabbitmq-host-port"  # 5671
+RABBITMQ_USERNAME="username"
+RABBITMQ_PASSWORD="password"
+RABBITMQ_PROTOCOL=amqps
+```
 
 ### Set up the client
 
@@ -50,7 +62,13 @@ npm install
 # Start the server
 cd server
 npm start
+```
 
+You may alternatively start server using `nodemon`: 
+```bash
+npx nodemon index.js
+```
+```bash
 # Start the client
 cd client
 npm run dev
