@@ -19,7 +19,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: 'localhost'
+    origin: 'http://localhost:5000'
 }));
 
 

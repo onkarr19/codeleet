@@ -41,11 +41,11 @@ async function consumeFromQueue() {
     const channel = await connection.createChannel();
     await channel.assertQueue(queueName);
     
-    // console.log('Waiting for submissions...');
+    console.log('Waiting for submissions...');
     
     channel.consume(queueName, async (msg) => {
         const submissionCode = msg.content.toString();
-        // console.log(`Received submission: ${submissionCode}`);
+        console.log(`Received submission: ${submissionCode}`);
     }, { noAck: true });
     
     process.on('exit', () => {
