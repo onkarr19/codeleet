@@ -4,11 +4,17 @@ import { useParams } from 'react-router-dom'
 import config from '../../../config';
 const backendURL = config.backendUrl;
 
+import Playground from '../Playground/Playground';
 
 function App() {
     const params = useParams();
     const problem_id = params.pid;
     const [problemData, setProblemData] = useState(null);
+    const [inputValue, setInputValue] = useState('');
+
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+    };
 
     useEffect(() => {
         const fetchProblem = async () => {
@@ -43,6 +49,15 @@ function App() {
             ) : (
                 <p>Loading...</p>
             )}
+
+            <div>
+                {/* Your other content */}
+                <Playground
+                    value={inputValue}
+                    onChange={handleInputChange}
+                />
+                {/* Your other content */}
+            </div>
         </div>
     );
 };
