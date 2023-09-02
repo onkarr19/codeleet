@@ -22,7 +22,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/problemset" element={<Problemset />} />
-                <Route path="/problem/:id/" element={<Problem  />} />
+                <Route path="/problem/:pid/" element={<Problem  />} />
                 <Route path="*" element={<div>404 Not Found</div>} />
             </Routes>
         </BrowserRouter>
