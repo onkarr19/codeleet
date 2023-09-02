@@ -9,7 +9,6 @@ function App({ value, onChange }) {
                 onChange={onChange}
             // Add any other props or styles you need
             />
-            <h2>tete</h2>
         </div>
     );
 }
