@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 
 import config from '../../../config';
@@ -74,6 +75,7 @@ function App() {
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <button onClick={handleSignup}>Sign Up</button>
+            <div><Link to={'/login'}>Already a user? Login here</Link></div>
         </div>
     );
 }

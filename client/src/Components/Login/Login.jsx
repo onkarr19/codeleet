@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import config from '../../../config';
 const backendURL = config.backendUrl;
@@ -55,6 +56,7 @@ function App() {
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <button onClick={handleLogin}>Login</button>
+                <div><Link to={'/signup'}>New here? sign up</Link></div>
             </div>
         </div>
     );
