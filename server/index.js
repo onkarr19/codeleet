@@ -145,11 +145,11 @@ app.get('/profile', auth, (req, res) => {
     const user = USERS.find((x) => x.id === req.userId);
     // if the user does not exist, return a 404 Not Found response
     if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+        return res.status(411).json({ message: 'User not found' });
     }
     
     // return a JSON response containing the user's profile information
-    res.json({
+    return res.json({
         'username': user.username,
         'name': user.name,
         'email': user.email
@@ -162,7 +162,7 @@ app.get('/problem/:id', (req, res) => {
     const id = req.params.id;
     const problem = PROBLEMS.find(problem => problem.id == id);
     if (problem) {
-        res.json({ problem, });
+        return res.json({ problem, });
     }
     return res.status(411).json({ error: "Problem not found." });
 });
