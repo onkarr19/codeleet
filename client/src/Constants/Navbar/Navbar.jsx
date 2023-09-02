@@ -8,6 +8,7 @@ import './Navbar.css';
 
 const Navbar = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [user, setUser] = useState('');
 
 	useEffect(() => {
 		const checkAuthentication = async () => {
@@ -24,7 +25,9 @@ const Navbar = () => {
 
 					if (response.ok) {
 						setIsLoggedIn(true);
-					}
+						const data = await response.json();
+						setUser(data);
+					} else if (response.status === 411) setIsLoggedIn(false);
 				} catch (error) {
 					console.error('Error checking authentication:', error);
 				}
@@ -48,13 +51,14 @@ const Navbar = () => {
 
 			{isLoggedIn ? (
 				<div className="nav-options">
-					<Link to={'/profile'}>Profile</Link>
-				</div>
+				<Link to={'/profile'}>{user.username}</Link>
+			</div>
 			) : (
 				<div className="nav-options">
 					<Link to={'/login'}>Login</Link>
 				</div>
 			)}
+			
 		</div>
 	);
 }
