@@ -5,6 +5,7 @@ import config from '../../../config';
 const backendURL = config.backendUrl;
 
 import Playground from '../Playground/Playground';
+import './Problem.css'
 
 function App() {
     const params = useParams();
@@ -39,18 +40,20 @@ function App() {
     }, []);
 
     return (
-        <div>
-            {problemData ? (
-                <div>
-                    <h2>Problem Title: {problemData.title}</h2>
-                    <p>Problem Description: {problemData.description}</p>
-                    {/* Add more rendering for other problem data */}
-                </div>
-            ) : (
-                <p>Loading...</p>
-            )}
+        <div className="container">
+            <div className="left">
+                {problemData ? (
+                    <div>
+                        <h2>Problem Title: {problemData.title}</h2>
+                        <p>Problem Description: {problemData.description}</p>
+                        {/* Add more rendering for other problem data */}
+                    </div>
+                ) : (
+                    <p>Loading...</p>
+                )}
+            </div>
 
-            <div>
+            <div className="right">
                 {/* Your other content */}
                 <Playground
                     value={inputValue}
