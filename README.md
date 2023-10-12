@@ -2,6 +2,10 @@
 
 CodeLeet is a web application designed to serve as a clone of the popular coding practice platform, LeetCode. It provides a platform for developers to solve coding problems, improve their problem-solving skills, and prepare for technical interviews. CodeLeet offers a collection of coding challenges and a user-friendly interface to solve and test solutions.
 
+## DockerWiz Integration
+
+CodeLeet now includes [DockerWiz](https://github.com/onkarr19/DockerWiz.git), a code runner service, for executing code submissions securely and efficiently. DockerWiz provides an isolated Docker environment with specified constraints, ensuring the safety and reliability of code execution. This integration allows CodeLeet to run user-submitted code with additional features such as constraints on execution time and network access.
+
 ## Features
 
 - **Coding Challenges:** CodeLeet comes with a vast collection of coding problems across various difficulty levels and categories such as algorithms, data structures, dynamic programming, and more.
@@ -12,9 +16,9 @@ CodeLeet is a web application designed to serve as a clone of the popular coding
 
 - **Test Cases:** Users can run their code against predefined test cases to verify the correctness of their solutions.
 
-- **Discussion Forum:** CodeLeet provides a discussion forum where users can ask questions, share solutions, and engage in technical discussions related to coding challenges.
+- **Discussion Forum:** CodeLeet provides a discussion forum where users can ask questions, share solutions, and engage in technical discussions related to coding challenges. (Planned)
 
-- **Leaderboard:** A global leaderboard showcases the top performers based on their solutions and efficiency.
+- **Leaderboard:** A global leaderboard showcases the top performers based on their solutions and efficiency. (Planned)
 
 ## Installation
 
@@ -75,6 +79,19 @@ npm run dev
 ```
 
 The server will run on `http://localhost:3000`, and the client will run on `http://localhost:5000`.
+
+## DockerWiz Integration
+
+### DockerWiz Installation
+Make sure you have Docker installed on your machine.
+Clone the DockerWiz repository:
+
+```bash
+git clone https://github.com/onkarr19/DockerWiz.git
+cd DockerWiz
+```
+
+Follow the instructions in the DockerWiz README to set up and start the DockerWiz service. DockerWiz provides a secure environment for executing code submissions.
 
 ## Contributing
 
